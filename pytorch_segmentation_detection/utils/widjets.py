@@ -63,7 +63,7 @@ def create_dataset_paginated_display_widget(dataset_obj, number_of_images_per_pa
         
             f, axies_list = plt.subplots(1, tuple_size, figsize=(20, 10))
             
-            sample_element_axis_pairs = zip(dataset_sample_tuple, axies_list)
+            sample_element_axis_pairs = list(zip(dataset_sample_tuple, axies_list))
             
             for index, sample_axis_pair in enumerate(sample_element_axis_pairs):
                 

@@ -98,7 +98,7 @@ def readlines_with_strip(filename):
         lines = f.readlines()
 
     # Clean filenames from whitespaces and newline symbols
-    clean_lines = list(map(lambda x: x.strip(), lines))
+    clean_lines = list([x.strip() for x in lines])
     
     return clean_lines
 
@@ -141,7 +141,7 @@ def add_full_path_and_extention_to_filenames(filenames_array, full_path, extenti
     full_filenames : array of strings
         updated array with filenames
     """
-    full_filenames = list(map(lambda x: os.path.join(full_path, x) + '.' + extention, filenames_array))
+    full_filenames = list([os.path.join(full_path, x) + '.' + extention for x in filenames_array])
     
     return full_filenames
 
@@ -162,8 +162,7 @@ def add_full_path_and_extention_to_filenames_array_version(filenames_array_array
     full_filenames : array of array of strings
         updated array of array with filenames
     """
-    result = list(map(lambda x: add_full_path_and_extention_to_filenames(x, full_path, extention),
-                      filenames_array_array))
+    result = list([add_full_path_and_extention_to_filenames(x, full_path, extention) for x in filenames_array_array])
     
     return result
 
@@ -216,7 +215,7 @@ def get_pascal_segmentation_image_annotation_filenames_pairs(pascal_root):
     # so that we have pairs of respective image plus annotation
     # [[(pair_1), (pair_1), ..], [(pair_1), (pair_2), ..] ..]
     # Overall, we have 3 elements -- representing train/val/trainval datasets
-    image_annotation_filename_pairs = list(map(lambda x: list(zip(*x)), temp))
+    image_annotation_filename_pairs = list([list(zip(*x)) for x in temp])
     
     return image_annotation_filename_pairs
 
@@ -377,7 +376,7 @@ def get_pascal_berkeley_augmented_segmentation_image_annotation_filenames_pairs(
     # so that we have pairs of respective image plus annotation
     # [[(pair_1), (pair_1), ..], [(pair_1), (pair_2), ..] ..]
     # Overall, we have 3 elements -- representing train/val/trainval datasets
-    image_annotation_filename_pairs = list(map(lambda x: list(zip(*x)), temp))
+    image_annotation_filename_pairs = list([list(zip(*x)) for x in temp])
     
     return image_annotation_filename_pairs
 
@@ -517,8 +516,8 @@ def get_augmented_pascal_image_annotation_filename_pairs(pascal_root, pascal_ber
     pascal_name_lists = readlines_with_strip_array_version(pascal_txts)
     berkeley_name_lists = readlines_with_strip_array_version(berkeley_txts)
 
-    pascal_train_name_set, pascal_val_name_set, _ = list(map(lambda x: set(x), pascal_name_lists))
-    berkeley_train_name_set, berkeley_val_name_set = list(map(lambda x: set(x), berkeley_name_lists))
+    pascal_train_name_set, pascal_val_name_set, _ = list([set(x) for x in pascal_name_lists])
+    berkeley_train_name_set, berkeley_val_name_set = list([set(x) for x in berkeley_name_lists])
 
     all_berkeley = berkeley_train_name_set | berkeley_val_name_set
     all_pascal = pascal_train_name_set | pascal_val_name_set

@@ -79,8 +79,8 @@ class PascalVOCDetection(data.Dataset):
         
         pil_img, cocolike_detection_annotations = self.pascal_cocolike_db[idx]
         
-        bboxes_locations_topleft_xywh = list(map(lambda cocolike_dict: cocolike_dict['bbox'], cocolike_detection_annotations))
-        bboxes_classes = list(map(lambda cocolike_dict: cocolike_dict['category_id'], cocolike_detection_annotations))
+        bboxes_locations_topleft_xywh = list([cocolike_dict['bbox'] for cocolike_dict in cocolike_detection_annotations])
+        bboxes_classes = list([cocolike_dict['category_id'] for cocolike_dict in cocolike_detection_annotations])
         
         # Getting the xywh coordinates and converting them to xyxy
         bboxes_locations_topleft_xywh = torch.FloatTensor( bboxes_locations_topleft_xywh )

@@ -26,7 +26,7 @@ def clean_up_annotation(annotation, labels=np.asarray([0, 70, 160]), ambigious_c
     # Algorithm finds the biggest connected component, other components are
     # marked as ambigious (255). This is based on prior knowledge that shaft
     # and manipulator labels are single connected components in each training frame.
-    for current_class_number in xrange(1, len(labels)):
+    for current_class_number in range(1, len(labels)):
 
         current_class_binary_mask = (closest_neighbour_map == current_class_number)
 
@@ -63,7 +63,7 @@ def merge_left_and_right_annotations(left_annotation,
     final_annotation = left_annotation.copy()
 
     # forgot the ambigious class 
-    for i in range(1, len(labels)) + [ambigious_class_id]:
+    for i in list(range(1, len(labels))) + [ambigious_class_id]:
 
         union_mask = (right_annotation == i) | (left_annotation == i)
 

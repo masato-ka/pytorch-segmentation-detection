@@ -26,7 +26,7 @@ def convert_lfw_parts_annotation_to_standart(lfw_annotation):
 
     anno_new = np.zeros(lfw_annotation.shape[:2], dtype=np.uint8)
 
-    for annotation_slice_number in xrange(lfw_annotation.shape[2]):
+    for annotation_slice_number in range(lfw_annotation.shape[2]):
 
         annotation_slice = lfw_annotation[:, :, annotation_slice_number]
         anno_new[annotation_slice > 0] = annotation_slice_number

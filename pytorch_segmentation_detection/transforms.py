@@ -183,7 +183,7 @@ class RandomHorizontalFlipJoint(object):
         # Perform the same flip on all of the inputs
         if random.random() < 0.5:
             
-            return list(map(lambda single_input:  ImageOps.mirror(single_input), inputs) )
+            return list([ImageOps.mirror(single_input) for single_input in inputs] )
         
         
         return inputs
@@ -254,7 +254,7 @@ class RandomCropJoint(object):
         x1 = random.randint(0, w - tw)
         y1 = random.randint(0, h - th)
         
-        outputs = list( map(lambda single_input: single_input.crop((x1, y1, x1 + tw, y1 + th)), padded_inputs) )
+        outputs = list( [single_input.crop((x1, y1, x1 + tw, y1 + th)) for single_input in padded_inputs] )
         
         return outputs
     
@@ -376,12 +376,12 @@ class Split2D(object):
     # Helper functions for reverse() method
     def squeeze_for_tensor_list(self, list_of_tensors, dim):
     
-        return list( map(lambda x: x.squeeze(dim), list_of_tensors) )
+        return list( [x.squeeze(dim) for x in list_of_tensors] )
 
     
     def squeeze_for_2D_tensor_list(self, list2D_of_tensors, dim):
     
-        return list( map(lambda x: self.squeeze_for_tensor_list(x, dim), list2D_of_tensors) )
+        return list( [self.squeeze_for_tensor_list(x, dim) for x in list2D_of_tensors] )
     
     
     def reverse(self, tensor_to_unsplit, dims_sizes):
@@ -393,12 +393,12 @@ class Split2D(object):
 
         
         # Split each rows into separate column elements
-        tensor_list_2D = list( map(lambda x: torch.split(x, split_size=1, dim=self.stack_dim), separate_rows) )
+        tensor_list_2D = list( [torch.split(x, split_size=1, dim=self.stack_dim) for x in separate_rows] )
         
         # Remove singleton dimension, so that we can use original self.split_dims
         tensor_list_2D = self.squeeze_for_2D_tensor_list(tensor_list_2D, self.stack_dim)
 
-        concatenated_columns = list( map(lambda x: torch.cat(x, dim=self.split_dims[1]), tensor_list_2D) )
+        concatenated_columns = list( [torch.cat(x, dim=self.split_dims[1]) for x in tensor_list_2D] )
         
         unsplit_original_tensor = torch.cat(concatenated_columns, dim=self.split_dims[0])
         

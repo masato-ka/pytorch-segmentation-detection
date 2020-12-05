@@ -114,7 +114,7 @@ class PascalVOCSegmentation(data.Dataset):
             print('\n PASCAL VOC segmentation dataset file already exists')
         else:
             
-            print("\n Downloading PASCAL VOC segmentation dataset to {}".format(self.pascal_tar_full_download_filename))
+            print(("\n Downloading PASCAL VOC segmentation dataset to {}".format(self.pascal_tar_full_download_filename)))
             urllib.request.urlretrieve(self.PASCAL_URL, self.pascal_tar_full_download_filename, _progress)
             
             
@@ -123,7 +123,7 @@ class PascalVOCSegmentation(data.Dataset):
             print('\n Berkeley segmentation dataset file already exists')
         else:
             
-            print("\n Downloading Berkeley segmentation additional dataset to {}".format(self.berkeley_tar_full_download_filename))
+            print(("\n Downloading Berkeley segmentation additional dataset to {}".format(self.berkeley_tar_full_download_filename)))
             urllib.request.urlretrieve(self.BERKELEY_URL, self.berkeley_tar_full_download_filename, _progress)
         
     
@@ -138,10 +138,10 @@ class PascalVOCSegmentation(data.Dataset):
     
     def _extract_dataset(self):
         
-        print("\n Extracting PASCAL VOC segmentation dataset to {}".format(self.pascal_full_root_folder_path))
+        print(("\n Extracting PASCAL VOC segmentation dataset to {}".format(self.pascal_full_root_folder_path)))
         self._extract_tar_to_the_root_folder(self.pascal_tar_full_download_filename)
         
-        print("\n Extracting Berkeley segmentation dataset to {}".format(self.berkeley_full_root_folder_path))
+        print(("\n Extracting Berkeley segmentation dataset to {}".format(self.berkeley_full_root_folder_path)))
         self._extract_tar_to_the_root_folder(self.berkeley_tar_full_download_filename)
         
     def _prepare_dataset(self):

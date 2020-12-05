@@ -35,7 +35,7 @@ class NYUv2Segmentation(data.Dataset):
         # 1 - test
         
         # Used for remapping from original labels to training ones
-        self.ordered_train_labels = np.asarray( [self.ignore_label] + range(13) )
+        self.ordered_train_labels = np.asarray( [self.ignore_label] + list(range(13)) )
 
         self.dataset_root = dataset_root
         self.joint_transform = joint_transform
@@ -49,8 +49,8 @@ class NYUv2Segmentation(data.Dataset):
         images_filenames = sorted(os.listdir(images_folder_path))
         annotations_filenames = sorted(os.listdir(annotations_folder_path))
 
-        self.images_filenames = list(map(lambda x: os.path.join(images_folder_path, x), images_filenames))
-        self.annotations_filenames = list(map(lambda x: os.path.join(annotations_folder_path, x), annotations_filenames))
+        self.images_filenames = list([os.path.join(images_folder_path, x) for x in images_filenames])
+        self.annotations_filenames = list([os.path.join(annotations_folder_path, x) for x in annotations_filenames])
             
     def __len__(self):
 

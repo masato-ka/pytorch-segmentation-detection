@@ -145,8 +145,7 @@ class Endovis_Instrument_2017(data.Dataset):
 
             for instrument_type in dataset_annotations_dict:
 
-                current_instrument_full_groundtruth_foldernames = list(map(lambda x: os.path.join(dataset_annotations_path, x),
-                                                                           dataset_annotations_dict[instrument_type]))
+                current_instrument_full_groundtruth_foldernames = list([os.path.join(dataset_annotations_path, x) for x in dataset_annotations_dict[instrument_type]])
 
                 dataset_annotations_dict[instrument_type] = current_instrument_full_groundtruth_foldernames
                 
@@ -222,7 +221,7 @@ class Endovis_Instrument_2017(data.Dataset):
 
             current_left_right_foldernames = current_names_to_groundtruth_mapping[instrument_name]
 
-            current_left_right_filenames = list(map(lambda x: get_sorted_by_name_image_names(x), current_left_right_foldernames))
+            current_left_right_filenames = list([get_sorted_by_name_image_names(x) for x in current_left_right_foldernames])
 
             current_number_of_frames = len(current_left_right_filenames[0])
 
@@ -236,14 +235,14 @@ class Endovis_Instrument_2017(data.Dataset):
             # In case when there is just one instrument of a particular type,
             # we will have a tuple of size one
             # We also convert the tuple to lists outright using map
-            current_instrument_annotation_filenames = list(map(list, zip(*current_left_right_filenames)))
+            current_instrument_annotation_filenames = list(map(list, list(zip(*current_left_right_filenames))))
 
             for index, current_dict in enumerate(overall_list):
 
                 current_dict[instrument_name] = current_instrument_annotation_filenames[index]
 
 
-        return zip(dataset_sorted_image_names, overall_list)
+        return list(zip(dataset_sorted_image_names, overall_list))
     
     
     def get_datasets_filenames(self, dataset_number_list):
@@ -291,7 +290,7 @@ class Endovis_Instrument_2017(data.Dataset):
     
     def merge_types_numpy_annotations_dict_into_single_annotation(self, annotations_numpy_dict, labels):
     
-        annotations_numpy = annotations_numpy_dict.values()
+        annotations_numpy = list(annotations_numpy_dict.values())
         
         annotation_with_merged_types = reduce( lambda x, y: merge_left_and_right_annotations_v2(x, y, labels),
                                                annotations_numpy )
@@ -316,7 +315,7 @@ class Endovis_Instrument_2017(data.Dataset):
     
         parts_annotation_numpy_copy = parts_annotation_numpy.copy()
 
-        for tool_part_name, tool_part_old_index in self.parts_class_to_label_mapping.items():
+        for tool_part_name, tool_part_old_index in list(self.parts_class_to_label_mapping.items()):
 
             new_label_to_assign = self.new_parts_class_to_label_mapping[tool_part_name]
 
@@ -502,8 +501,7 @@ class Endovis_Instrument_2017_fast(data.Dataset):
 
             for instrument_type in dataset_annotations_dict:
 
-                current_instrument_full_groundtruth_foldernames = list(map(lambda x: os.path.join(dataset_annotations_path, x),
-                                                                           dataset_annotations_dict[instrument_type]))
+                current_instrument_full_groundtruth_foldernames = list([os.path.join(dataset_annotations_path, x) for x in dataset_annotations_dict[instrument_type]])
 
                 dataset_annotations_dict[instrument_type] = current_instrument_full_groundtruth_foldernames
                 
@@ -612,7 +610,7 @@ class Endovis_Instrument_2017_fast(data.Dataset):
 
             current_left_right_foldernames = current_names_to_groundtruth_mapping[instrument_name]
 
-            current_left_right_filenames = list(map(lambda x: get_sorted_by_name_image_names(x), current_left_right_foldernames))
+            current_left_right_filenames = list([get_sorted_by_name_image_names(x) for x in current_left_right_foldernames])
 
             current_number_of_frames = len(current_left_right_filenames[0])
 
@@ -626,14 +624,14 @@ class Endovis_Instrument_2017_fast(data.Dataset):
             # In case when there is just one instrument of a particular type,
             # we will have a tuple of size one
             # We also convert the tuple to lists outright using map
-            current_instrument_annotation_filenames = list(map(list, zip(*current_left_right_filenames)))
+            current_instrument_annotation_filenames = list(map(list, list(zip(*current_left_right_filenames))))
 
             for index, current_dict in enumerate(overall_list):
 
                 current_dict[instrument_name] = current_instrument_annotation_filenames[index]
 
 
-        return zip(dataset_sorted_image_names, overall_list)
+        return list(zip(dataset_sorted_image_names, overall_list))
     
     
     def get_datasets_filenames(self, dataset_number_list):
@@ -681,7 +679,7 @@ class Endovis_Instrument_2017_fast(data.Dataset):
     
     def merge_types_numpy_annotations_dict_into_single_annotation(self, annotations_numpy_dict, labels):
     
-        annotations_numpy = annotations_numpy_dict.values()
+        annotations_numpy = list(annotations_numpy_dict.values())
         
         annotation_with_merged_types = reduce( lambda x, y: merge_left_and_right_annotations_v2(x, y, labels),
                                                annotations_numpy )
@@ -706,7 +704,7 @@ class Endovis_Instrument_2017_fast(data.Dataset):
     
         parts_annotation_numpy_copy = parts_annotation_numpy.copy()
 
-        for tool_part_name, tool_part_old_index in self.parts_class_to_label_mapping.iteritems():
+        for tool_part_name, tool_part_old_index in self.parts_class_to_label_mapping.items():
 
             new_label_to_assign = self.new_parts_class_to_label_mapping[tool_part_name]
 
